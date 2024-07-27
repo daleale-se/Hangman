@@ -1,4 +1,4 @@
-import { INITIAL_LIFES, INITIAL_TIME, WORDS, INCREMENT_SCORE} from "./constants.js"
+import { INITIAL_LIFES, INITIAL_TIME, WORDS, INCREMENT_SCORE, INCREMENT_TIME, ALPHABET } from "./constants.js"
 
 function addGuessToAttempts(attemptsLetters, letter) {
     return attemptsLetters + letter
@@ -48,6 +48,14 @@ function decrementTime(timeLeft) {
     return timeLeft - 1 
 }
 
+function buildButtons() {
+    return ALPHABET.split("").map(letter => {
+        let button = document.createElement("button")
+        button.innerHTML = letter
+        return button
+    })
+}
+
 export { 
     addGuessToAttempts, 
     decrementLife, 
@@ -56,5 +64,6 @@ export {
     newGame,
     incrementScore,
     incrementTime,
-    decrementTime
+    decrementTime,
+    buildButtons
 }
