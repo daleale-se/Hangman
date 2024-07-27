@@ -8,5 +8,6 @@
     "build": "node main.js"
   },
   "author": "daleale",
-  "license": "ISC"
+  "license": "ISC",
+  "type": "module"
 }
