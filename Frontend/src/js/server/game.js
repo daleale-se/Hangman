@@ -1,5 +1,5 @@
 import { INITIAL_LIFES, INITIAL_TIME, WORDS } from "./constants.js"
-import utils from "../utils.js"
+import { addGuessToAttempts, decrementLife, getValidLetter, incrementScore, incrementTime, replaceGuesses } from "./gameUtils.js"
 
 function guessChar(currentGame, guess) {
 
@@ -7,11 +7,11 @@ function guessChar(currentGame, guess) {
     let { hiddenWord, attemptsLetters, lifes } = currentGame;
 
     if (!attemptsLetters.includes(guess)) {
-        attemptsLetters = utils.addGuessToAttempts(attemptsLetters, guess)
+        attemptsLetters = addGuessToAttempts(attemptsLetters, guess)
         if (word.includes(guess)) {
-            hiddenWord = utils.replaceGuesses(word, hiddenWord, guess)
+            hiddenWord = replaceGuesses(word, hiddenWord, guess)
         } else {
-            lifes = utils.decrementLife(lifes)
+            lifes = decrementLife(lifes)
         }
     }
 
@@ -29,9 +29,9 @@ function revealChar(currentGame) {
     let { word } = currentGame.wordInfo
     let { attemptsLetters, hiddenWord } = currentGame
 
-    let letter = utils.getValidLetter(word, attemptsLetters)    
-    attemptsLetters = utils.addGuessToAttempts(attemptsLetters, letter)
-    hiddenWord = utils.replaceGuesses(word, hiddenWord, letter)
+    let letter = getValidLetter(word, attemptsLetters)    
+    attemptsLetters = addGuessToAttempts(attemptsLetters, letter)
+    hiddenWord = replaceGuesses(word, hiddenWord, letter)
 
     return {
         ...currentGame,
@@ -71,8 +71,8 @@ function nextGame(currentGame) {
 function discoveredWord(currentGame) {
 
     let { timeLeft, score } = currentGame
-    timeLeft = utils.incrementTime(timeLeft)
-    score = utils.incrementScore(score)
+    timeLeft = incrementTime(timeLeft)
+    score = incrementScore(score)
     
     return {
         ...currentGame,

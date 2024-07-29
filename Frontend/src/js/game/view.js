@@ -1,4 +1,4 @@
-import utils from "./utils.js"
+import { ALPHABET } from "./constants.js"
 
 function updateStats(currentGame) {
 
@@ -45,15 +45,23 @@ function clearDisplay() {
 
 }
 
+function buildButtons() {
+    return ALPHABET.split("").map(letter => {
+        let button = document.createElement("button")
+        button.innerHTML = letter
+        return button
+    })
+}
+
 function createCharacters(currentGame) {
 
-    const lettersButtons = utils.buildButtons()
+    const lettersButtons = buildButtons()
     const letterDiv = document.getElementById("letters")
     for (const button of lettersButtons) {
         button.onclick = currentGame.handleGuess
         letterDiv.appendChild(button)
     }
-    
+
 }
 
 function updateStart(currentGame) {

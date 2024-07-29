@@ -1,6 +1,13 @@
-import utils from "./utils.js";
-import game from "./server/game.js"
+import game from "../server/game.js"
 import { clearDisplay, updateStats, updateTime } from "./view.js";
+
+function playerHasLifes(currentGame) {
+    return currentGame.lifes > 0
+}
+
+function playerGuessHiddenWord(currentGame) {
+    return !currentGame.hiddenWord.includes("_")
+}
 
 export default function setGame() {
     
@@ -9,17 +16,17 @@ export default function setGame() {
 
     function startTimer() {
         time = setInterval(() => {
-            gameState.timeLeft = utils.decrementTime(gameState.timeLeft)
+            gameState.timeLeft--
             updateTime(gameState, time)
         }, 1000)
     }
 
     function handleGuess(e) {
         gameState = game.guessChar(gameState, e.target.textContent)
-        if (utils.playerGuessHiddenWord(gameState)) {
+        if (playerGuessHiddenWord(gameState)) {
             gameState = game.nextGame(game.discoveredWord(gameState))
         }
-        if (!utils.playerHasLifes(gameState)) {
+        if (!playerHasLifes(gameState)) {
             gameState = {}
             clearDisplay()
         } else {
@@ -31,24 +38,24 @@ export default function setGame() {
         gameState = game.nextGame(gameState)
     }
 
-    function revealLetter() {
-        gameState = game.revealLetter(gameState)
+    function revealChar() {
+        gameState = game.revealChar(gameState)
     }
 
     function newGame() {
         gameState = game.newGame()
     }
 
-    function getGameState() {
+    function getState() {
         return gameState
     }
 
     return {
         handleGuess,
         nextGame,
-        revealLetter,
+        revealChar,
         newGame,
-        getGameState,
+        getState,
         startTimer
     }
 

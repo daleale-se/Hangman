@@ -1,5 +1,5 @@
 import { updateStats, createCharacters } from "./js/view.js";
-import setGame from "./js/gameState.js";
+import setGame from "./js/game/controller.js";
 
 function main() {
 
@@ -20,7 +20,7 @@ function main() {
         game.revealChar()
         updateStats(game.getState())
     }
-    
+
     nextButton.onclick = () => {
         game.nextGame()
         updateStats(game.getState())

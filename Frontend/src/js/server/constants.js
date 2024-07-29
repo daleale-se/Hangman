@@ -51,8 +51,7 @@ const WORDS = [
     { word: "cardiology", clue: "study of the heart", difficulty: "medium" }
 ]
 const INITIAL_TIME = 31
+const INCREMENT_TIME = 25
 const INCREMENT_SCORE = 100
-const INCREMENT_TIME = 15
-const ALPHABET = "qwertyuiopasdfghjklzxcvbnm"
-
-export { INITIAL_LIFES, INITIAL_TIME, WORDS, INCREMENT_SCORE, INCREMENT_TIME, ALPHABET }
+const DECREMENT_LIFE = 1
+export { INITIAL_LIFES, INITIAL_TIME, WORDS, INCREMENT_SCORE, INCREMENT_TIME, DECREMENT_LIFE}
