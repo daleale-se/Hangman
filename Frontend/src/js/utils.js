@@ -1,4 +1,4 @@
-import { INITIAL_LIFES, INITIAL_TIME, WORDS, INCREMENT_SCORE, INCREMENT_TIME, ALPHABET } from "./constants.js"
+import { INCREMENT_SCORE, INCREMENT_TIME, ALPHABET } from "./server/constants.js"
 
 function addGuessToAttempts(attemptsLetters, letter) {
     return attemptsLetters + letter
@@ -20,22 +20,6 @@ function getValidLetter(word, attemptsLetters) {
     return letter
 }
 
-function newGame() {
-    let initialWordInfo = WORDS[Math.floor(Math.random()*WORDS.length)]
-    return {
-        lifes: INITIAL_LIFES,
-        wordInfo: initialWordInfo,
-        attemptsLetters: "",
-        hiddenWord: initialWordInfo["word"].split("").map(e => "_"),
-        score: 0,
-        timeLeft: INITIAL_TIME
-    }
-}
-
-// function playerLose(currentGame) {
-//     return currentGame.lifes === 0 || currentGame.timeLeft === 0
-// }
-
 function incrementScore(currentScore) {
     return currentScore + INCREMENT_SCORE
 }
@@ -45,7 +29,7 @@ function incrementTime(timeLeft) {
 }
 
 function decrementTime(timeLeft) {
-    return timeLeft - 1 
+    return timeLeft - 1
 }
 
 function buildButtons() {
@@ -56,14 +40,28 @@ function buildButtons() {
     })
 }
 
-export { 
-    addGuessToAttempts, 
-    decrementLife, 
-    replaceGuesses, 
+function playerHasLifes(currentGame) {
+    return currentGame.lifes > 0
+}
+
+function playerGuessHiddenWord(currentGame) {
+    return !currentGame.hiddenWord.includes("_")
+}
+
+function playerGuessAChar(currentGame, lastHiddenWord) {
+    return currentGame.hiddenWord.join("") !== lastHiddenWord
+}
+
+export default {
+    addGuessToAttempts,
+    decrementLife,
+    replaceGuesses,
     getValidLetter,
-    newGame,
     incrementScore,
     incrementTime,
     decrementTime,
-    buildButtons
+    buildButtons,
+    playerHasLifes,
+    playerGuessHiddenWord,
+    playerGuessAChar
 }

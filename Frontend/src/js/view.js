@@ -1,3 +1,5 @@
+import utils from "./utils.js"
+
 function updateStats(currentGame) {
 
     const statsDiv = document.getElementById("stats")
@@ -43,21 +45,16 @@ function clearDisplay() {
 
 }
 
-// function updateLetters(currentGame) {
+function createCharacters(currentGame) {
 
-//     const lettersDiv = document.getElementById("letters")
-//     lettersDiv.innerHTML = ""
-//     for (const letter of ALPHABET) {
-//         const letterButton = document.createElement("button")
-//         letterButton.innerHTML = letter
-//         if (currentGame.attemptsLetters.includes(letter)) {
-//             letterButton.disabled = true
-//         }
-//         letterButton.onclick = (e) => guessLetter(currentGame, e.currentTarget.textContent)
-//         lettersDiv.appendChild(letterButton)
-//     }
-
-// }
+    const lettersButtons = utils.buildButtons()
+    const letterDiv = document.getElementById("letters")
+    for (const button of lettersButtons) {
+        button.onclick = currentGame.handleGuess
+        letterDiv.appendChild(button)
+    }
+    
+}
 
 function updateStart(currentGame) {
 
@@ -70,22 +67,19 @@ function updateStart(currentGame) {
     
 }
 
-function updateTime(currentGame, time) {
+function updateTime(gameState, time) {
 
     const timeDiv = document.getElementById("time")
     timeDiv.innerHTML = ""
-    currentGame.timeLeft -= 1
-    const {timeLeft} = currentGame
-    if (timeLeft === 0) {
-        clearInterval(time)
-        currentGame.lifes = 0
-        verifyGame(currentGame)
-    } else {
+    const { timeLeft } = gameState
+    if (timeLeft > 0) {
         const timeLeftP = document.createElement("p")
         timeLeftP.textContent = timeLeft
         timeDiv.appendChild(timeLeftP)
+    } else {
+        clearInterval(time)
     }
 
 }
 
-export { updateStats, showInfo, clearDisplay, updateStart, updateTime }
+export { updateStats, showInfo, clearDisplay, updateStart, updateTime, createCharacters }
