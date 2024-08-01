@@ -1,5 +1,5 @@
 import { updateStats, createCharacters } from "./js/view.js";
-import setGame from "./js/game/controller.js";
+import setGame from "./js/controller.js";
 
 function main() {
 
@@ -9,8 +9,8 @@ function main() {
     const revealButton = document.getElementById("reveal")
     const nextButton = document.getElementById("next")
 
-    startButton.onclick = () => {
-        game.newGame()
+    startButton.onclick = async () => {
+        await game.newGame()
         game.startTimer()
         updateStats(game.getState())
         createCharacters(game)
